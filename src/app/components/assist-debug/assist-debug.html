@@ -1,0 +1,39 @@
+<div class="assist-debug" *ngIf="hasVehicle; else noVehicle">
+  @for (g of groups; track g.title) {
+    <div class="assist-debug__group">
+      <div class="assist-debug__group-head">
+        <span class="assist-debug__group-title">{{ g.title }}<app-hint [text]="g.hint" /></span>
+        @if (g.toggleKey) {
+          <label class="assist-debug__toggle">
+            <input
+              class="assist-debug__checkbox"
+              type="checkbox"
+              [(ngModel)]="g.obj[g.toggleKey]"
+              (ngModelChange)="g.onChange?.()"
+            />
+            вкл
+          </label>
+        }
+        <button class="assist-debug__reset" type="button" title="Сбросить к дефолтам" (click)="g.reset()">↺</button>
+      </div>
+      @for (r of g.rows; track r.key) {
+        <div class="assist-debug__row">
+          <span class="assist-debug__label">{{ r.label }}<app-hint [text]="r.hint" /></span>
+          <input
+            class="assist-debug__input"
+            type="number"
+            [step]="r.step"
+            [min]="r.min"
+            [max]="r.max"
+            [(ngModel)]="g.obj[r.key]"
+            (ngModelChange)="g.onChange?.()"
+          />
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<ng-template #noVehicle>
+  <div class="assist-debug assist-debug_empty">Модель не загружена</div>
+</ng-template>

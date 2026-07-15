@@ -1,0 +1,192 @@
+@use '../ui-theme' as dt;
+
+$gear-yellow: #ffcf40;
+
+.car-ui {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  max-width: 235px;
+  min-width: 235px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  z-index: 10;
+  padding: 10px 16px 12px;
+  border-radius: 12px;
+  border: 1px solid dt.$outline-variant;
+  background: rgba(dt.$surface, 0.96);
+  color: dt.$on-surface;
+  font-family: dt.$font;
+  font-size: 12px;
+  line-height: 1.3;
+  letter-spacing: 0.15px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    0 4px 8px 3px rgba(0, 0, 0, 0.15);
+  user-select: none;
+
+  &__leds {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  &__led {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: dt.$surface-container-high;
+    border: 1px solid dt.$outline-variant;
+    transition: background-color 0.04s linear, box-shadow 0.04s linear;
+
+    &_on {
+      border-color: transparent;
+
+      &.car-ui__led_green {
+        background: dt.$success-bright;
+        box-shadow: 0 0 6px rgba(dt.$success-bright, 0.6);
+      }
+
+      &.car-ui__led_yellow {
+        background: dt.$warning-bright;
+        box-shadow: 0 0 6px rgba(dt.$warning-bright, 0.6);
+      }
+
+      &.car-ui__led_red {
+        background: dt.$error-bright;
+        box-shadow: 0 0 6px rgba(dt.$error-bright, 0.6);
+      }
+
+      &.car-ui__led_blink {
+        animation: car-ui-led-blink 0.22s steps(1) infinite;
+      }
+    }
+  }
+
+  &__main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  &__gear-speed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 72px;
+  }
+
+  &__gear {
+    @include dt.mono;
+    font-size: 50px;
+    font-weight: 900;
+    line-height: 1;
+    color: $gear-yellow;
+    transition: color 0.1s linear;
+
+    &_redline {
+      color: dt.$error-bright;
+    }
+  }
+
+  &__speed {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-top: 2px;
+  }
+
+  &__speed-value {
+    @include dt.mono;
+    font-size: 21px;
+    font-weight: 500;
+    color: dt.$on-surface;
+  }
+
+  &__speed-unit {
+    @include dt.subtitle;
+    font-size: 12px;
+  }
+
+  &__pedals-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+    gap: 3px;
+    padding-left: 8px;
+  }
+
+  &__rpm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__rpm-value {
+    @include dt.mono;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    color: dt.$on-surface-variant;
+  }
+
+  &__rpm-unit {
+    @include dt.subtitle;
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  &__pedals {
+    display: flex;
+    gap: 5px;
+    flex: 1;
+    align-self: stretch;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  &__pedal {
+    width: 6px;
+    min-height: 36px;
+    background: dt.$surface-container-high;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+
+    &_throttle .car-ui__pedal-fill {
+      background: linear-gradient(to top, dt.$success, dt.$success-bright);
+    }
+
+    &_brake .car-ui__pedal-fill {
+      background: linear-gradient(to top, dt.$error, dt.$error-bright);
+    }
+  }
+
+  &__pedal-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 3px;
+    transition: height 0.05s ease-out;
+  }
+
+  &__wheel {
+    margin-left: 10px;
+    width: 70px;
+    height: 70px;
+    will-change: transform;
+  }
+}
+
+@keyframes car-ui-led-blink {
+  50% {
+    opacity: 0.15;
+    box-shadow: none;
+  }
+}

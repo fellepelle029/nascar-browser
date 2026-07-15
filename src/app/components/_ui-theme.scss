@@ -1,0 +1,169 @@
+@use 'sass:color';
+
+// ── typography ──
+$font: Roboto, 'Segoe UI', system-ui, -apple-system, sans-serif;
+$mono: 'Roboto Mono', ui-monospace, Consolas, monospace;
+
+// ── colors (MD3 dark, blue seed) ──
+$surface: #1c1b1f;
+$surface-container: #26252a;
+$surface-container-high: #2b2a30;
+$on-surface: #e6e1e5;
+$on-surface-variant: #a8a3ad;
+$outline: #938f99;
+$outline-variant: #49454f;
+
+$primary: #a8c7fa;
+$on-primary: #062e6f;
+$primary-hover: #bdd3fb;
+$primary-strong: #4285f4;
+$secondary-container: #404659;
+$on-secondary-container: #dbe2f9;
+
+// ── HUD semantics (Google dark palette) ──
+$success: #34a853;
+$success-bright: #81c995;
+$warning: #fbbc04;
+$warning-bright: #fdd663;
+$error: #ea4335;
+$error-bright: #f28b82;
+
+// ── panel container ──
+@mixin panel {
+  position: absolute;
+  z-index: 10;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid $outline-variant;
+  background: rgba($surface, 0.96);
+  color: $on-surface;
+  font-family: $font;
+  font-size: 12px;
+  line-height: 1.45;
+  letter-spacing: 0.15px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.3),
+    0 4px 8px 3px rgba(0, 0, 0, 0.15);
+}
+
+// ── text roles ──
+@mixin title {
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  color: $on-surface;
+}
+
+@mixin subtitle {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: $on-surface-variant;
+}
+
+@mixin label {
+  font-size: 12px;
+  color: $on-surface-variant;
+}
+
+@mixin mono {
+  font-family: $mono;
+  font-variant-numeric: tabular-nums;
+}
+
+@mixin divider-top {
+  padding-top: 12px;
+  border-top: 1px solid $outline-variant;
+}
+
+// ── inputs (MD3 filled text field) ──
+@mixin field {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 6px 10px;
+  background: $surface-container-high;
+  color: $on-surface;
+  font: inherit;
+  border: none;
+  border-bottom: 1px solid $on-surface-variant;
+  border-radius: 4px 4px 0 0;
+  outline: none;
+  transition: border-color 0.15s, background-color 0.15s;
+
+  &:hover {
+    background: color.adjust($surface-container-high, $lightness: 3%);
+  }
+
+  &:focus {
+    padding-bottom: 5px;
+    border-bottom: 2px solid $primary;
+  }
+}
+
+// ── checkbox / slider (native, tinted primary) ──
+@mixin checkbox {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: $primary;
+  cursor: pointer;
+}
+
+@mixin range {
+  height: 18px;
+  accent-color: $primary;
+  cursor: pointer;
+}
+
+// ── buttons (MD3: filled / tonal / outlined, pill) ──
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 32px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 16px;
+  font-family: $font;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+
+@mixin btn-filled {
+  @include btn-base;
+  background: $primary;
+  color: $on-primary;
+
+  &:hover {
+    background: $primary-hover;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@mixin btn-tonal {
+  @include btn-base;
+  background: $secondary-container;
+  color: $on-secondary-container;
+
+  &:hover {
+    background: color.adjust($secondary-container, $lightness: 4%);
+  }
+}
+
+@mixin btn-outlined {
+  @include btn-base;
+  background: transparent;
+  border: 1px solid $outline;
+  color: $primary;
+
+  &:hover {
+    background: rgba($primary, 0.08);
+  }
+}

@@ -1,0 +1,12 @@
+<div class="rapier-debug">
+  <label class="rapier-debug__toggle">
+    <input
+      class="rapier-debug__checkbox"
+      type="checkbox"
+      [ngModel]="wireframe"
+      (ngModelChange)="onWireframeChange($event)"
+    />
+    Wireframe коллайдеров / контактов
+    <app-hint text="Коллайдеры и контакты физики зелеными линиями" />
+  </label>
+</div>

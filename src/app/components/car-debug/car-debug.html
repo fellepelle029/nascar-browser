@@ -1,0 +1,150 @@
+<div class="car-debug" *ngIf="hasVehicle; else noVehicle">
+  <div class="car-debug__row">
+    <span class="car-debug__label">Масса, кг<app-hint text="Вес машины" /></span>
+    <input
+      class="car-debug__input"
+      type="number"
+      step="25"
+      min="500"
+      max="5000"
+      [(ngModel)]="mass"
+      (ngModelChange)="applyMass()"
+    />
+  </div>
+  <div class="car-debug__row">
+    <span class="car-debug__label">Пружина, Н/м<app-hint text="Больше - жестче подвеска" /></span>
+    <input
+      class="car-debug__input"
+      type="number"
+      step="5000"
+      min="10000"
+      max="500000"
+      [(ngModel)]="suspension.springRate"
+      (ngModelChange)="applySuspension()"
+    />
+  </div>
+  <div class="car-debug__row">
+    <span class="car-debug__label">Демпфер сжатие, Н*с/м<app-hint text="Больше - жестче глотает кочки" /></span>
+    <input
+      class="car-debug__input"
+      type="number"
+      step="250"
+      min="100"
+      max="80000"
+      [(ngModel)]="suspension.compressionDamping"
+      (ngModelChange)="applySuspension()"
+    />
+  </div>
+  <div class="car-debug__row">
+    <span class="car-debug__label">Демпфер отбой, Н*с/м<app-hint text="Мало - кузов раскачивает" /></span>
+    <input
+      class="car-debug__input"
+      type="number"
+      step="250"
+      min="100"
+      max="100000"
+      [(ngModel)]="suspension.reboundDamping"
+      (ngModelChange)="applySuspension()"
+    />
+  </div>
+  <div class="car-debug__row">
+    <span class="car-debug__label">Ход подвески, м<app-hint text="Длина стойки в покое, клиренс" /></span>
+    <input
+      class="car-debug__input"
+      type="number"
+      step="0.01"
+      min="0.05"
+      max="0.35"
+      [(ngModel)]="suspension.restLength"
+      (ngModelChange)="applySuspension()"
+    />
+  </div>
+  <div class="car-debug__row">
+    <span class="car-debug__label">Ход сжатия, м<app-hint text="Запас сжатия до отбойника" /></span>
+    <input
+      class="car-debug__input"
+      type="number"
+      step="0.005"
+      min="0.01"
+      max="0.2"
+      [(ngModel)]="suspension.bumpTravel"
+      (ngModelChange)="applySuspension()"
+    />
+  </div>
+  <div class="car-debug__row">
+    <span class="car-debug__label">Ход отбоя, м<app-hint text="Насколько колесо вывесится вниз" /></span>
+    <input
+      class="car-debug__input"
+      type="number"
+      step="0.005"
+      min="0.01"
+      max="0.25"
+      [(ngModel)]="suspension.reboundTravel"
+      (ngModelChange)="applySuspension()"
+    />
+  </div>
+  <div class="car-debug__row">
+    <span class="car-debug__label">Рычаг подвески<app-hint text="Ход пружины на ход колеса" /></span>
+    <input
+      class="car-debug__input"
+      type="number"
+      step="0.05"
+      min="0.4"
+      max="1.4"
+      [(ngModel)]="suspension.motionRatio"
+      (ngModelChange)="applySuspension()"
+    />
+  </div>
+  <div class="car-debug__row">
+    <span class="car-debug__label">Стабилизатор перед, Н/м<app-hint text="Жестче - хуже поворачивает, стабильнее" /></span>
+    <input
+      class="car-debug__input"
+      type="number"
+      step="1000"
+      min="0"
+      max="200000"
+      [(ngModel)]="suspension.arbFrontNM"
+      (ngModelChange)="applySuspension()"
+    />
+  </div>
+  <div class="car-debug__row">
+    <span class="car-debug__label">Стабилизатор зад, Н/м<app-hint text="Жестче - легче в занос" /></span>
+    <input
+      class="car-debug__input"
+      type="number"
+      step="1000"
+      min="0"
+      max="200000"
+      [(ngModel)]="suspension.arbRearNM"
+      (ngModelChange)="applySuspension()"
+    />
+  </div>
+  <div class="car-debug__row">
+    <span class="car-debug__label">Отбойник, x пружины<app-hint text="Во сколько раз жестче пружины" /></span>
+    <input
+      class="car-debug__input"
+      type="number"
+      step="1"
+      min="2"
+      max="40"
+      [(ngModel)]="suspension.bumpStopRateMult"
+      (ngModelChange)="applySuspension()"
+    />
+  </div>
+  <div class="car-debug__row">
+    <span class="car-debug__label">Отбойник ход, м<app-hint text="Глубина дожима после пробоя" /></span>
+    <input
+      class="car-debug__input"
+      type="number"
+      step="0.01"
+      min="0.03"
+      max="0.3"
+      [(ngModel)]="suspension.bumpStopRangeM"
+      (ngModelChange)="applySuspension()"
+    />
+  </div>
+</div>
+
+<ng-template #noVehicle>
+  <div class="car-debug car-debug_empty">Модель не загружена</div>
+</ng-template>

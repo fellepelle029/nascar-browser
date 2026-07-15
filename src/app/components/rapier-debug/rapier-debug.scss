@@ -1,0 +1,17 @@
+@use '../ui-theme' as dt;
+
+// rendered inside the debug hub accordion - no own panel/positioning
+
+.rapier-debug {
+  &__toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    color: dt.$on-surface;
+  }
+
+  &__checkbox {
+    @include dt.checkbox;
+  }
+}

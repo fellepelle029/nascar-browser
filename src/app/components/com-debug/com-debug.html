@@ -1,0 +1,51 @@
+<div class="com-debug" *ngIf="hasVehicle">
+  <label class="com-debug__toggle">
+    <input class="com-debug__checkbox" type="checkbox" [ngModel]="show" (ngModelChange)="onShowToggle($event)" />
+    Показать точку
+    <app-hint text="Зеленый шарик - центр масс" />
+  </label>
+
+  <div class="com-debug__row">
+    <span class="com-debug__label">Лево/право (X)<app-hint text="Центр масс вбок" /></span>
+    <input
+      class="com-debug__range"
+      type="range"
+      min="-1.0"
+      max="1.0"
+      step="0.01"
+      [(ngModel)]="comX"
+      (ngModelChange)="onComChange()"
+    />
+    <span class="com-debug__value">{{ comX | number:'1.2-2' }}</span>
+  </div>
+
+  <div class="com-debug__row">
+    <span class="com-debug__label">Высота (Y)<app-hint text="Ниже - стабильнее в поворотах" /></span>
+    <input
+      class="com-debug__range"
+      type="range"
+      min="-0.5"
+      max="1.0"
+      step="0.01"
+      [(ngModel)]="comY"
+      (ngModelChange)="onComChange()"
+    />
+    <span class="com-debug__value">{{ comY | number:'1.2-2' }}</span>
+  </div>
+
+  <div class="com-debug__row">
+    <span class="com-debug__label">Передний/задний (Z)<app-hint text="Центр масс вперед/назад" /></span>
+    <input
+      class="com-debug__range"
+      type="range"
+      min="-1.5"
+      max="1.5"
+      step="0.01"
+      [(ngModel)]="comZ"
+      (ngModelChange)="onComChange()"
+    />
+    <span class="com-debug__value">{{ comZ | number:'1.2-2' }}</span>
+  </div>
+
+  <button class="com-debug__reset" type="button" (click)="resetCom()">Сбросить</button>
+</div>

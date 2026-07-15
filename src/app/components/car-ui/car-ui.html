@@ -1,0 +1,46 @@
+<div class="car-ui">
+  <div class="car-ui__leds">
+    @for (i of leds; track i) {
+      <span
+        class="car-ui__led"
+        [class.car-ui__led_green]="ledZone(i) === 'g'"
+        [class.car-ui__led_yellow]="ledZone(i) === 'y'"
+        [class.car-ui__led_red]="ledZone(i) === 'r'"
+        [class.car-ui__led_on]="ledOn(i)"
+        [class.car-ui__led_blink]="isRedline"
+      ></span>
+    }
+  </div>
+
+  <div class="car-ui__main">
+    <div class="car-ui__gear-speed">
+      <span class="car-ui__gear" [class.car-ui__gear_redline]="isRedline">{{ gearDisplay }}</span>
+      <span class="car-ui__speed">
+        <span class="car-ui__speed-value">{{ speedDisplay }}</span>
+        <span class="car-ui__speed-unit">км/ч</span>
+      </span>
+    </div>
+
+    <div class="car-ui__pedals-block">
+      <span class="car-ui__rpm">
+        <span class="car-ui__rpm-value">{{ rpmDisplay }}</span>
+        <span class="car-ui__rpm-unit">rpm</span>
+      </span>
+      <div class="car-ui__pedals">
+        <div class="car-ui__pedal car-ui__pedal_brake">
+          <div class="car-ui__pedal-fill" [style.height.%]="brake * 100"></div>
+        </div>
+        <div class="car-ui__pedal car-ui__pedal_throttle">
+          <div class="car-ui__pedal-fill" [style.height.%]="throttle * 100"></div>
+        </div>
+      </div>
+    </div>
+
+    <img
+      class="car-ui__wheel"
+      src="assets/icons/steering-wheel.svg"
+      alt="руль"
+      [style.transform]="'rotate(' + wheelRotationDeg + 'deg)'"
+    />
+  </div>
+</div>

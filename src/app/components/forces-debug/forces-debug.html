@@ -1,0 +1,66 @@
+<div class="forces-debug" *ngIf="hasVehicle">
+  <div class="forces-debug__row forces-debug__row_speed">
+    <span class="forces-debug__label">Скорость</span>
+    <span class="forces-debug__value">{{ speedKmh | number:'1.0-0' }} км/ч</span>
+  </div>
+
+  <div class="forces-debug__row">
+    <span class="forces-debug__label">Тяжесть<app-hint text="Масса на 9.8" /></span>
+    <span class="forces-debug__value">{{ gravity | number:'1.0-0' }} Н</span>
+  </div>
+
+  <div class="forces-debug__row">
+    <span class="forces-debug__label">Сопротивление воздуха<app-hint text="Воздух тормозит машину" /></span>
+    <span class="forces-debug__value">{{ drag | number:'1.0-1' }} Н</span>
+  </div>
+
+  <div class="forces-debug__row">
+    <span class="forces-debug__label">Прижим<app-hint text="Воздух прижимает к дороге" /></span>
+    <span class="forces-debug__value">{{ downforce | number:'1.0-1' }} Н</span>
+  </div>
+
+  <div class="forces-debug__row">
+    <span class="forces-debug__label">Центробежная<app-hint text="Тянет наружу в повороте" /></span>
+    <span class="forces-debug__value">
+      <span *ngIf="centrifugalDir < 0">◀ </span>
+      {{ centrifugal | number:'1.0-1' }} Н
+      <span *ngIf="centrifugalDir > 0"> ▶</span>
+    </span>
+  </div>
+
+  <ng-container *ngIf="traction as t">
+    <div class="forces-debug__traction">
+      <div class="forces-debug__subtitle">
+        Шины / сцепление
+        <app-hint text="конт - на земле; подв - давление подвески; сцеп - потолок шины; мотор - тяга привода; скольж - пик 0.085; тяга - что толкает кузов" />
+      </div>
+      <div class="forces-debug__summary">
+        <span>Сцепление</span><span class="forces-debug__num">{{ t.mu | number:'1.2-2' }}</span>
+        <span>Вес/кол</span><span class="forces-debug__num">{{ t.staticLoadPerWheelN | number:'1.0-0' }} Н</span>
+        <span>Мотор хочет</span><span class="forces-debug__num">{{ t.requestedEngineTotalN | number:'1.0-0' }} Н</span>
+        <span>В шину пришло</span><span class="forces-debug__num">{{ t.appliedEngineTotalN | number:'1.0-0' }} Н</span>
+        <span>Сумма вперед</span><span class="forces-debug__num">{{ t.sumForwardForceN | number:'1.0-0' }} Н</span>
+        <span>Сумма бок</span><span class="forces-debug__num">{{ t.sumSideForceN | number:'1.0-0' }} Н</span>
+      </div>
+      <div class="forces-debug__grid forces-debug__grid_head">
+        <span></span><span>конт</span><span>подв</span><span>сцеп</span><span>мотор</span><span>скольж</span><span>тяга</span>
+      </div>
+      <div class="forces-debug__grid" *ngFor="let w of t.wheels">
+        <span class="forces-debug__wheel-key">{{ w.key }}</span>
+        <span class="forces-debug__num">{{ w.inContact ? '●' : '○' }}</span>
+        <span class="forces-debug__num">{{ w.suspensionForceN | number:'1.0-0' }}</span>
+        <span class="forces-debug__num">{{ w.maxLongitudinalN | number:'1.0-0' }}</span>
+        <span class="forces-debug__num">{{ w.appliedEngineN | number:'1.0-0' }}</span>
+        <span class="forces-debug__num">{{ w.slipRatio | number:'1.2-2' }}</span>
+        <span class="forces-debug__num">{{ w.forwardForceN | number:'1.0-0' }}</span>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="forces-debug__load">
+    <div class="forces-debug__load-head">
+      <app-hint text="Точка - куда переехал вес" />
+    </div>
+    <canvas class="forces-debug__load-canvas" #comCanvas width="150" height="150"></canvas>
+  </div>
+</div>

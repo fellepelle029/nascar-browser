@@ -1,0 +1,50 @@
+@use '../ui-theme' as dt;
+
+.com-debug {
+  &__toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    color: dt.$on-surface;
+  }
+
+  &__checkbox {
+    @include dt.checkbox;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  &__label {
+    @include dt.label;
+    flex-shrink: 0;
+    width: 110px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__range {
+    @include dt.range;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__value {
+    @include dt.mono;
+    flex-shrink: 0;
+    width: 44px;
+    text-align: right;
+  }
+
+  &__reset {
+    @include dt.btn-outlined;
+    margin-top: 8px;
+    width: 100%;
+  }
+}

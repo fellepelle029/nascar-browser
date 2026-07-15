@@ -1,0 +1,30 @@
+@use '../ui-theme' as dt;
+
+.car-debug {
+  &_empty {
+    color: dt.$on-surface-variant;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  &__label {
+    @include dt.label;
+    flex: 1;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input {
+    @include dt.field;
+    width: 96px;
+    flex: none;
+    padding: 3px 8px;
+    font-size: 11px;
+  }
+}

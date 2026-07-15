@@ -1,0 +1,68 @@
+<div class="race">
+    <canvas class="race__canvas" #canvas></canvas>
+    <span class="race__version">v{{ appVersion }}</span>
+    @if (debugVisible) {
+        <div class="debug-hub">
+            <section class="debug-hub__section">
+                <button type="button" class="debug-hub__head" (click)="toggleSection('car')">
+                    <span class="debug-hub__chev" [class.debug-hub__chev_open]="isOpen('car')">▸</span>Машина
+                </button>
+                @if (isOpen('car')) {
+                    <div class="debug-hub__body"><app-car-debug></app-car-debug></div>
+                }
+            </section>
+            <section class="debug-hub__section">
+                <button type="button" class="debug-hub__head" (click)="toggleSection('assist')">
+                    <span class="debug-hub__chev" [class.debug-hub__chev_open]="isOpen('assist')">▸</span>Ассисты
+                </button>
+                @if (isOpen('assist')) {
+                    <div class="debug-hub__body"><app-assist-debug></app-assist-debug></div>
+                }
+            </section>
+            <section class="debug-hub__section">
+                <button type="button" class="debug-hub__head" (click)="toggleSection('com')">
+                    <span class="debug-hub__chev" [class.debug-hub__chev_open]="isOpen('com')">▸</span>Центр масс
+                </button>
+                @if (isOpen('com')) {
+                    <div class="debug-hub__body"><app-com-debug></app-com-debug></div>
+                }
+            </section>
+            <section class="debug-hub__section">
+                <button type="button" class="debug-hub__head" (click)="toggleSection('forces')">
+                    <span class="debug-hub__chev" [class.debug-hub__chev_open]="isOpen('forces')">▸</span>Силы / шины
+                </button>
+                @if (isOpen('forces')) {
+                    <div class="debug-hub__body"><app-forces-debug></app-forces-debug></div>
+                }
+            </section>
+            <section class="debug-hub__section">
+                <button type="button" class="debug-hub__head" (click)="toggleSection('rapier')">
+                    <span class="debug-hub__chev" [class.debug-hub__chev_open]="isOpen('rapier')">▸</span>Rapier
+                </button>
+                @if (isOpen('rapier')) {
+                    <div class="debug-hub__body"><app-rapier-debug></app-rapier-debug></div>
+                }
+            </section>
+        </div>
+    }
+    <div class="controls-hint">
+        <div class="controls-hint__row"><span class="controls-hint__key">W</span><span class="controls-hint__key">S</span> газ / тормоз</div>
+        <div class="controls-hint__row"><span class="controls-hint__key">A</span><span class="controls-hint__key">D</span> руль</div>
+        <div class="controls-hint__row"><span class="controls-hint__key">Space</span> держать газ</div>
+        <div class="controls-hint__row"><span class="controls-hint__key">I</span> двигатель вкл/выкл</div>
+        <div class="controls-hint__row"><span class="controls-hint__key">R</span> респаун</div>
+        <div class="controls-hint__row"><span class="controls-hint__key">1</span><span class="controls-hint__key">2</span><span class="controls-hint__key">3</span> камера</div>
+        <div class="controls-hint__row"><span class="controls-hint__key">ЛКМ</span> обзор (камера сзади)</div>
+        <div class="controls-hint__row"><span class="controls-hint__key">F1</span> дебаг</div>
+    </div>
+    <app-car-ui
+        [throttle]="dashboard.throttle()"
+        [brake]="dashboard.brake()"
+        [rpm]="dashboard.rpm()"
+        [maxRpm]="dashboard.maxRpm()"
+        [redlineRpm]="dashboard.redlineRpm()"
+        [gear]="dashboard.gear()"
+        [speedKmh]="dashboard.speedKmh()"
+        [steerAngleRad]="dashboard.steerAngleRad()"
+    ></app-car-ui>
+</div>
